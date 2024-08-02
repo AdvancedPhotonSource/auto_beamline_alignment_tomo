@@ -336,7 +336,7 @@ app.layout = dbc.Container([
                 html.Br()
             ]),
             dbc.Row([
-                html.Div(['3. Select the "Zoom" tool in the upper right hand corner of the "SAM" image. Select the middle of the object in the SAM image and click "Run all images".'], style = style)
+                html.Div(['3. Select the "Zoom" tool in the upper right hand corner of the "SAM" image. Click the middle of the object in the SAM image and click "Run all images".'], style = style)
             ]),
             dbc.Row([
                 html.Br()
