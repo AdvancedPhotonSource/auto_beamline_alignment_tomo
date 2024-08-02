@@ -1,0 +1,10 @@
+scipy
+plotly
+pandas
+pyepics
+opencv-contrib-python
+dash
+segment-anything
+pillow
+dash_bootstrap_components
+numpy
