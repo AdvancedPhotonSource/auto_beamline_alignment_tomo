@@ -8,3 +8,4 @@ segment-anything
 pillow
 dash_bootstrap_components
 numpy
+torch
