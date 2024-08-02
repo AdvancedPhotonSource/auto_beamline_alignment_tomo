@@ -473,12 +473,6 @@ app.layout = dbc.Container([
         dbc.Col([
         html.Button('Run first image', id='button', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
         ]),
-        dbc.Col([
-            html.Button('Run all images', id='button-two', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
-        ]),
-        dbc.Col([
-            html.Button('Center pin and verify', id='button-restart', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
-        ]),
     ]),
     dbc.Row([
         html.Div(id = 'beam', style=style) 
@@ -515,6 +509,9 @@ app.layout = dbc.Container([
             dbc.Row([
                 dcc.Graph(id='sam-img',figure = fig, config={'modeBarButtonsToAdd': ['drawrect', 'eraseshape']})
             ]),
+        dbc.Row([
+	        html.Br()
+        ]),
         dbc.Col([
                 html.Button('Submit beam', id='button-edge', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
             ]),
@@ -543,6 +540,14 @@ app.layout = dbc.Container([
 	        html.Br()
         ]),
         dbc.Col([
+            html.Button('Run all images', id='button-two',
+                        style={'background-color': 'black', 'width': '200px', 'color': '#7FDBFF', 'fontSize': 15,
+                               'fontFamily': 'OCR A Std, monospace'})
+        ]),
+        dbc.Row([
+	        html.Br()
+        ]),
+        dbc.Col([
             dbc.Row([
                 html.Div(['SAM with Grid Point'], style = style)
             ]),
@@ -566,6 +571,14 @@ app.layout = dbc.Container([
                 html.Div(id = 'output-data', style = style)
             ])
         ])
+    ]),
+    dbc.Row([
+        html.Br()
+    ]),
+    dbc.Col([
+        html.Button('Center pin and verify', id='button-restart',
+                    style={'background-color': 'black', 'width': '200px', 'color': '#7FDBFF', 'fontSize': 15,
+                           'fontFamily': 'OCR A Std, monospace'})
     ]),
     dbc.Row([
         html.Br()
