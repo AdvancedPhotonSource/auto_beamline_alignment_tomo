@@ -225,7 +225,7 @@ def graph_scatter(first_midpoint, rots, y_coord):
     num_of_rotations = 360/rots
 
  
-    for i in range(1,num_of_rotations): 
+    for i in range(1,int(num_of_rotations)):
         
         image_file = move_motor(i * angle_rotation, time_exposure)
         im  = Image.open(image_file)
@@ -238,7 +238,7 @@ def graph_scatter(first_midpoint, rots, y_coord):
         dif_right, dif_left, mid_point = generate_sam_and_find_edge(mid_for_mask, y_coord, width, height,edges, norm_im)
         if dif_left < 50 or dif_right < 50:
             #Move motor back to angle 0 so the pin can move the other direction
-            for j in range(1,num_of_rotations): 
+            for j in range(1,int(num_of_rotations)):
                 image_file_reverse = move_motor(-j * angle_rotation, time_exposure)
                 im_reverse  = Image.open(image_file_reverse)
                 if answer_normalization == 1:
