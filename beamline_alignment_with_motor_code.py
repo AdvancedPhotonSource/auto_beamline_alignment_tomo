@@ -635,22 +635,7 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
     global clicks_tracker
     global height, width, directory_input, time_exposure, angle_rotation, answer_normalization,pixel_size, camera_type, file_type,cam_name,off_set,rad_ius, mtr_samXE, mtr_samYE, mtr_samOme, mtr_aeroXE, pname, froot, im_0
     
-    pname = directory_input
-    froot = 'pin_alignment'
-    PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True)
-    PyEpics.caput(cam_name + ':' + file_type +':FileName', froot, wait=True)
-    mtr_samXE = PyEpics.Motor(xe) 
-    mtr_samYE = PyEpics.Motor(ye) 
-    mtr_samOme = PyEpics.Motor(aero_input)
-    mtr_aeroXE = PyEpics.Motor(aeroxe)
 
-    print(f'******directory input: {pname} **********')
-    print(f'******froot input: {froot} **********')
-
-    pixel_size = pixel_input
-    file_type = file
-    cam_name = camname
-    camera_type = cam_input
     
     mask_generator = SamAutomaticMaskGenerator(sam)
     
@@ -658,9 +643,25 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
         if clicks > clicks_tracker:
             clicks_tracker = clicks
             if dt is not None and time_input is not None and angle_input is not None:
-                directory_input = dt
+                pname = dt
                 time_exposure = time_input
                 angle_rotation = angle_input
+
+                froot = 'pin_alignment'
+                #PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True)
+                PyEpics.caput(cam_name + ':' + file_type + ':FileName', froot, wait=True)
+                mtr_samXE = PyEpics.Motor(xe)
+                mtr_samYE = PyEpics.Motor(ye)
+                mtr_samOme = PyEpics.Motor(aero_input)
+                mtr_aeroXE = PyEpics.Motor(aeroxe)
+
+                print(f'******directory input: {pname} **********')
+                print(f'******froot input: {froot} **********')
+
+                pixel_size = pixel_input
+                file_type = file
+                cam_name = camname
+                camera_type = cam_input
                 
                 width, height, im_1, image0 = move_motors_normalize(time_exposure)
                 im_0 = image0
