@@ -17,7 +17,7 @@ import dash_bootstrap_components as dbc
 app = Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
 
 #The sam_checkpoint will need to be changed 
-sam_checkpoint = "/home/beams/VYAREMA/bl/sam_vit_h_4b8939.pth"
+sam_checkpoint = os.path.expanduser('~/opt/auto_beamline_alignment_tomo/model/sam_vit_h_4b8939.pth')
 model_type = "vit_h"
 device = "cuda"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
