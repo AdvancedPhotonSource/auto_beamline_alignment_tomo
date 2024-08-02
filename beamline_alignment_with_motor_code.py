@@ -294,9 +294,10 @@ def move_motor(angle,time_needed):
     global cam_name, file_type, camera_type, pname
     
     mtr_samOme.move(angle, wait = True)
+    PyEpics.caput(cam_name + ':' + camera_type + ':AcquireTime', time_needed, wait=True)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
     time.sleep(0.5)
-    PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', time_needed, wait=True)
+    PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', 1, wait=True)
     time.sleep(0.5)
     PyEpics.caput(cam_name + ':' + file_type + ':AutoSave', 'No', wait=True)
     time.sleep(1)
