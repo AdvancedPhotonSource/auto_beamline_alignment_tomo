@@ -9,3 +9,4 @@ pillow
 dash_bootstrap_components
 numpy
 torch
+torchvision
