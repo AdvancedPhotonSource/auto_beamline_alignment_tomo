@@ -394,7 +394,7 @@ app.layout = dbc.Container([
         ]),
         dbc.Col([
             dbc.Row([
-                html.Div(['samYE (optional): '], style=style) 
+                html.Div(['samZE (optional): '], style=style)
             ]),
             dbc.Row([
                 dcc.Input(id='samYE-input', value = '1ide1:m35',type='text', style={'width': '200px'})
@@ -410,7 +410,7 @@ app.layout = dbc.Container([
         ]),
         dbc.Col([
             dbc.Row([
-                html.Div(['aero (optional): '], style=style) 
+                html.Div(['Rot (optional): '], style=style)
             ]),
             dbc.Row([
                 dcc.Input(id='aero-input', value = '1ide:m9',type='text', style={'width': '200px'})
