@@ -474,9 +474,6 @@ app.layout = dbc.Container([
         html.Button('Run first image', id='button', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
         ]),
         dbc.Col([
-            html.Button('Submit beam', id='button-edge', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
-        ]),
-        dbc.Col([
             html.Button('Run all images', id='button-two', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
         ]),
         dbc.Col([
@@ -490,7 +487,7 @@ app.layout = dbc.Container([
 	html.Br()
     ]),
     dbc.Row([
-	html.Br()
+	    html.Br()
     ]),
     dbc.Row([
 	    dbc.Col([
@@ -517,7 +514,33 @@ app.layout = dbc.Container([
             ]),
             dbc.Row([
                 dcc.Graph(id='sam-img',figure = fig, config={'modeBarButtonsToAdd': ['drawrect', 'eraseshape']})
-            ])
+            ]),
+        dbc.Col([
+                html.Button('Submit beam', id='button-edge', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
+            ]),
+        ]),
+        dbc.Row([
+	        html.Br()
+        ]),
+        dbc.Col([
+            dbc.Row([
+                html.Div(['2. Select the "Draw rectangle" tool in the upper right hand corner of the "SAM" image. Select the beam in the SAM image and click "Submit beam".'], style = style)
+            ]),
+            dbc.Row([
+                html.Br()
+            ]),
+            dbc.Row([
+                html.Div(['3. Select the "Zoom" tool in the upper right hand corner of the "SAM" image. Select the middle of the object in the SAM image and click "Run all images".'], style = style)
+            ]),
+            dbc.Row([
+                html.Br()
+            ]),
+            dbc.Row([
+                html.Div(['4. Once offset, radius, and start theta are displayed, click the "Center pin and verify" button to center the beam.'], style = style)
+            ]),
+        ]),
+        dbc.Row([
+	        html.Br()
         ]),
         dbc.Col([
             dbc.Row([
