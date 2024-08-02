@@ -296,7 +296,7 @@ def move_motor(angle,time_needed):
     mtr_samOme.move(angle, wait = True)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
     time.sleep(0.5)
-    PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', time_needed, wait=True) 
+    PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', time_needed, wait=True)
     time.sleep(0.5)
     PyEpics.caput(cam_name + ':' + file_type + ':AutoSave', 'No', wait=True)
     time.sleep(1)
@@ -633,7 +633,7 @@ app.layout = dbc.Container([
 )
 def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, aero_input, pixel_input, file, cam_input, camname):
     global clicks_tracker
-    global height, width, directory_input, time_exposure, angle_rotation, answer_normalization,pixel_size, camera_type,cam, file_type,cam_name,off_set,rad_ius, mtr_samXE, mtr_samYE, mtr_samOme, mtr_aeroXE, pname, froot, im_0
+    global height, width, directory_input, time_exposure, angle_rotation, answer_normalization,pixel_size, camera_type, file_type,cam_name,off_set,rad_ius, mtr_samXE, mtr_samYE, mtr_samOme, mtr_aeroXE, pname, froot, im_0
     
     pname = directory_input
     froot = 'pin_alignment'
@@ -644,10 +644,11 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
     mtr_samOme = PyEpics.Motor(aero_input)
     mtr_aeroXE = PyEpics.Motor(aeroxe)
 
+
     pixel_size = pixel_input
     file_type = file
     cam_name = camname
-    cam = cam_input
+    camera_type = cam_input
     
     mask_generator = SamAutomaticMaskGenerator(sam)
     
