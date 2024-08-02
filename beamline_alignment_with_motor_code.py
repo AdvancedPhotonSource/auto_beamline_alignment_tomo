@@ -476,9 +476,6 @@ app.layout = dbc.Container([
         ]),
     ]),
     dbc.Row([
-        html.Div(id = 'beam', style=style) 
-    ]),
-    dbc.Row([
 	html.Br()
     ]),
     dbc.Row([
@@ -516,6 +513,12 @@ app.layout = dbc.Container([
         dbc.Col([
                 html.Button('Submit beam', id='button-edge', style={'background-color': 'black', 'width': '200px', 'color' : '#7FDBFF', 'fontSize': 15, 'fontFamily' : 'OCR A Std, monospace'})
             ]),
+        ]),
+        dbc.Row([
+	        html.Br()
+        ]),
+        dbc.Row([
+            html.Div(id='beam', style=style)
         ]),
         dbc.Row([
 	        html.Br()
