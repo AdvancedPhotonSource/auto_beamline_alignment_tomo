@@ -637,13 +637,15 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
     
     pname = directory_input
     froot = 'pin_alignment'
-    PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True) 
+    PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True)
     PyEpics.caput(cam_name + ':' + file_type +':FileName', froot, wait=True)
     mtr_samXE = PyEpics.Motor(xe) 
     mtr_samYE = PyEpics.Motor(ye) 
     mtr_samOme = PyEpics.Motor(aero_input)
     mtr_aeroXE = PyEpics.Motor(aeroxe)
 
+    print(f'******directory input: {pname} **********')
+    print(f'******froot input: {froot} **********')
 
     pixel_size = pixel_input
     file_type = file
