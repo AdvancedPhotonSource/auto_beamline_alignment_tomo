@@ -691,9 +691,9 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
                 
                 return og_img, nl_img, sam_img
             else:
-                return px.imshow([])
+                return px.imshow([]), px.imshow([]), px.imshow([])
     else:
-        return px.imshow([])
+        return px.imshow([]), px.imshow([]), px.imshow([])
         
 @app.callback(
     Output('new-image', 'figure'),
@@ -792,9 +792,9 @@ def update_sam_grid(n_clicks, clickData):
             return reg, scatter, f'Rotation axis position (pixels): {params[0]}, Pin offset from rotation axis (pixels): {params[1]}, Pin offset angle (degrees): {params[2]}'
 
         else:
-            return px.imshow([]), go.Figure(), None
+            return px.imshow([]), go.Figure(), f''
     else:
-        return px.imshow([]), go.Figure(), None
+        return px.imshow([]), go.Figure(), f''
 
 
 if __name__ == "__main__":
