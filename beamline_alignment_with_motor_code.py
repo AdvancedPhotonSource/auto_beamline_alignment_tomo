@@ -23,7 +23,6 @@ sam_checkpoint = os.path.expanduser('~/opt/auto_beamline_alignment_tomo/model/sa
 model_type = "vit_h"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
-sys.exit()
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 
@@ -158,11 +157,17 @@ def generate_sam_and_find_edge(mid_mask,y_coord, wdth, hght, input_edges, norm_i
     x_gridpoint, y_gridpoint = calculate_point(mid_mask,y_coord,wdth,hght)
     x_gridpoint_edge, y_gridpoint_edge = calculate_point(input_edges[0], input_edges[1], wdth,hght)
     points = [np.array([[x_gridpoint,y_gridpoint],[x_gridpoint_edge,y_gridpoint_edge]])]
+    t0 = time.time()
     mask_generator_pts = SamAutomaticMaskGenerator(sam,points_per_side = None, point_grids = points)
+    print(time.time()-t0)
     masks_all = mask_generator_pts.generate(norm_img)
+    print(time.time()-t0)
     mp , left, right = get_mid_point(masks_all, y_coord, mid_mask)
+    print(time.time()-t0)
     diff_right = calculate_difference(right, edges[1])
+    print(time.time()-t0)
     diff_left = calculate_difference(left, edges[0])            
+    print(time.time()-t0)
     return diff_right, diff_left, mp
 
 def calculate_point(x,y,image_size_x, image_size_y):
@@ -237,8 +242,7 @@ def graph_scatter(first_midpoint, rots, y_coord):
             norm_im = normalization(1, im, im_0)
         else:
             norm_im = normalization(0, im, im_0)
-
-            
+        
         dif_right, dif_left, mid_point = generate_sam_and_find_edge(mid_for_mask, y_coord, width, height,edges, norm_im)
         if dif_left < 50 or dif_right < 50:
             #Move motor back to angle 0 so the pin can move the other direction
