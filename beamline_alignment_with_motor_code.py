@@ -295,25 +295,17 @@ def move_motor(angle,time_needed):
     global cam_name, file_type, camera_type, pname
     t0 = time.time()
     mtr_samOme.move(angle, wait = True)
-    print(time.time()-t0,312)
     ############# VERIFY!!!!
     PyEpics.caput(cam_name + ':' + camera_type + ':ImageMode', 'Single', wait=True)
-    print(time.time()-t0,315)
     PyEpics.caput(cam_name + ':' + camera_type + ':AcquireTime', time_needed, wait=True)
-    print(time.time()-t0,317)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
-    print(time.time()-t0,319)
     time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', 1, wait=True)
-    print(time.time()-t0,322)
     time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + file_type + ':AutoSave', 'No', wait=True)
-    print(time.time()-t0,325)
     time.sleep(0.05)
     fname=PyEpics.caget(cam_name + ':' + file_type + ':FileName_RBV', 'str') + "_%06d"%(PyEpics.caget(cam_name + ':' + file_type + ':FileNumber_RBV')-1) + '.tif'
-    print(time.time()-t0,328)
     pfname=os.path.join(pname, fname)
-    print(time.time()-t0,330)
     return pfname
 
 app.layout = dbc.Container([
@@ -714,9 +706,9 @@ def new_image(clicks_restart):
         if clicks_restart > restart_clicks_tracker:
             restart_clicks_tracker = clicks_restart
             beam_center = edges[1] - edges[0]
-            move_aero_x = (off_set - (beam_center/2)) * pixel_size
-            move_sam_x = rad_ius * (np.sin(start_theta))
-            move_sam_y = -rad_ius * (np.cos(start_theta))
+            move_aero_x = ((off_set - (beam_center/2)) * pixel_size)/1000
+            move_sam_x = (rad_ius * (np.sin(start_theta))*pixel_size)/1000
+            move_sam_y = (-rad_ius * (np.cos(start_theta))*pixel_size)/1000
             print(move_aero_x,move_sam_x,move_sam_y)
             
             mtr_samXE.move(move_sam_x,relative=True, wait=True)
