@@ -8,6 +8,7 @@ import numpy as np
 from dash import Dash, dcc, html, Input, Output
 import cv2
 import os
+import torch
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 import plotly.graph_objs as go
 from scipy.optimize import curve_fit
@@ -19,9 +20,9 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
 #The sam_checkpoint will need to be changed 
 sam_checkpoint = os.path.expanduser('~/opt/auto_beamline_alignment_tomo/model/sam_vit_h_4b8939.pth')
 model_type = "vit_h"
-device = "cuda"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
-sam.to(device =device)
+sam.to(device=device)
 
 
 ####################################################
@@ -222,9 +223,9 @@ def graph_scatter(first_midpoint, rots, y_coord):
     theta = np.append(theta, 0)
     th = 0
     th_reverse = 0
-    num_of_rotations = 360/rots
+    num_of_rotations = 180/rots
 
- 
+
     for i in range(1,int(num_of_rotations)):
         
         image_file = move_motor(i * angle_rotation, time_exposure)
