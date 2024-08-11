@@ -196,21 +196,28 @@ def edge_detection(mask_edge, y_edge, x_edge):
 ####################################################
 #This function will move the pin out of the way to take a normalized image
 def move_motors_normalize(time_norm):
-    
+    t0 = time.time()
     mtr_samXE.move(-2.0, relative=True, wait=True)
+    print(time.time()-t0)
     pfname = move_motor(0, time_norm)
+    print(time.time()-t0)
     
     #Set image_0 to the image taken without the pin which will be used for normalization
     image_norm = Image.open(pfname)
+    print(time.time()-t0)
     
     #Move object back into frame
     mtr_samXE.move(2.0, relative=True, wait=True)
+    print(time.time()-t0)
     
     #Move motor to angle 0, this will be displayed to the user 
     image_path = move_motor(0, time_norm)
+    print(time.time()-t0)
     
     im = Image.open(image_path)
+    print(time.time()-t0)
     width_norm, height_norm = im.size
+    print(time.time()-t0)
     
     return width_norm, height_norm, im, image_norm
     
