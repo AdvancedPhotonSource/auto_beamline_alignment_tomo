@@ -369,7 +369,7 @@ app.layout = dbc.Container([
                 html.Div(['Exposure Time (seconds): '], style=style) 
             ]),
             dbc.Row([
-                dcc.Input(id = 'time-input', value = 2, max = 10, type = 'number', style={'width': '200px'})  # Adjust style as needed
+                dcc.Input(id = 'time-input', value = 0.3, max = 10, type = 'number', style={'width': '200px'})  # Adjust style as needed
             ])
         ]),
         dbc.Col([
@@ -377,7 +377,7 @@ app.layout = dbc.Container([
                 html.Div(['Rotation Step (degrees): '], style=style) 
             ]),
             dbc.Row([
-                dcc.Input(id = 'angle-input',value = 1, max = 10, type = 'number', style={'width': '200px'})  # Adjust style as needed
+                dcc.Input(id = 'angle-input',value = 5, max = 10, type = 'number', style={'width': '200px'})  # Adjust style as needed
             ])
         ])
     ]),
@@ -641,9 +641,6 @@ app.layout = dbc.Container([
 def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, aero_input, pixel_input, file, cam_input, camname):
     global clicks_tracker
     global height, width, directory_input, time_exposure, angle_rotation, answer_normalization,pixel_size, camera_type, file_type,cam_name,off_set,rad_ius, mtr_samXE, mtr_samYE, mtr_samOme, mtr_aeroXE, pname, froot, im_0
-    
-
-    
     mask_generator = SamAutomaticMaskGenerator(sam)
     
     if clicks is not None: 
