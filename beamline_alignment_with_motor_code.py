@@ -157,17 +157,11 @@ def generate_sam_and_find_edge(mid_mask,y_coord, wdth, hght, input_edges, norm_i
     x_gridpoint, y_gridpoint = calculate_point(mid_mask,y_coord,wdth,hght)
     x_gridpoint_edge, y_gridpoint_edge = calculate_point(input_edges[0], input_edges[1], wdth,hght)
     points = [np.array([[x_gridpoint,y_gridpoint],[x_gridpoint_edge,y_gridpoint_edge]])]
-    t0 = time.time()
     mask_generator_pts = SamAutomaticMaskGenerator(sam,points_per_side = None, point_grids = points)
-    print(time.time()-t0)
     masks_all = mask_generator_pts.generate(norm_img)
-    print(time.time()-t0)
     mp , left, right = get_mid_point(masks_all, y_coord, mid_mask)
-    print(time.time()-t0)
     diff_right = calculate_difference(right, edges[1])
-    print(time.time()-t0)
     diff_left = calculate_difference(left, edges[0])            
-    print(time.time()-t0)
     return diff_right, diff_left, mp
 
 def calculate_point(x,y,image_size_x, image_size_y):
@@ -196,28 +190,20 @@ def edge_detection(mask_edge, y_edge, x_edge):
 ####################################################
 #This function will move the pin out of the way to take a normalized image
 def move_motors_normalize(time_norm):
-    t0 = time.time()
     mtr_samXE.move(-2.0, relative=True, wait=True)
-    print(time.time()-t0,201)
     pfname = move_motor(0, time_norm)
-    print(time.time()-t0,203)
     
     #Set image_0 to the image taken without the pin which will be used for normalization
     image_norm = Image.open(pfname)
-    print(time.time()-t0,207)
     
     #Move object back into frame
     mtr_samXE.move(2.0, relative=True, wait=True)
-    print(time.time()-t0,211)
     
     #Move motor to angle 0, this will be displayed to the user 
     image_path = move_motor(0, time_norm)
-    print(time.time()-t0,215)
     
     im = Image.open(image_path)
-    print(time.time()-t0,218)
     width_norm, height_norm = im.size
-    print(time.time()-t0,220)
     
     return width_norm, height_norm, im, image_norm
     
@@ -731,6 +717,7 @@ def new_image(clicks_restart):
             move_aero_x = (off_set - (beam_center/2)) * pixel_size
             move_sam_x = rad_ius * (np.sin(start_theta))
             move_sam_y = -rad_ius * (np.cos(start_theta))
+            print(move_aero_x,move_sam_x,move_sam_y)
             
             mtr_samXE.move(move_sam_x,relative=True, wait=True)
             mtr_samYE.move(move_sam_y,relative=True, wait=True)
