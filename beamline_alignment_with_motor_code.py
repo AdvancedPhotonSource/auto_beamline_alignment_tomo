@@ -9,6 +9,7 @@ from dash import Dash, dcc, html, Input, Output
 import cv2
 import os
 import torch
+import sys
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 import plotly.graph_objs as go
 from scipy.optimize import curve_fit
@@ -295,13 +296,14 @@ def move_motor(angle,time_needed):
     global cam_name, file_type, camera_type, pname
     
     mtr_samOme.move(angle, wait = True)
+    ############# VERIFY!!!!
     PyEpics.caput(cam_name + ':' + camera_type + ':AcquireTime', time_needed, wait=True)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
-    time.sleep(0.5)
+    time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', 1, wait=True)
-    time.sleep(0.5)
+    time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + file_type + ':AutoSave', 'No', wait=True)
-    time.sleep(1)
+    time.sleep(0.05)
     fname=PyEpics.caget(cam_name + ':' + file_type + ':FileName_RBV', 'str') + "_%06d"%(PyEpics.caget(cam_name + ':' + file_type + ':FileNumber_RBV')-1) + '.tif'
     pfname=os.path.join(pname, fname)
     return pfname
