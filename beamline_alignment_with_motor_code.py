@@ -198,26 +198,26 @@ def edge_detection(mask_edge, y_edge, x_edge):
 def move_motors_normalize(time_norm):
     t0 = time.time()
     mtr_samXE.move(-2.0, relative=True, wait=True)
-    print(time.time()-t0)
+    print(time.time()-t0,201)
     pfname = move_motor(0, time_norm)
-    print(time.time()-t0)
+    print(time.time()-t0,203)
     
     #Set image_0 to the image taken without the pin which will be used for normalization
     image_norm = Image.open(pfname)
-    print(time.time()-t0)
+    print(time.time()-t0,207)
     
     #Move object back into frame
     mtr_samXE.move(2.0, relative=True, wait=True)
-    print(time.time()-t0)
+    print(time.time()-t0,211)
     
     #Move motor to angle 0, this will be displayed to the user 
     image_path = move_motor(0, time_norm)
-    print(time.time()-t0)
+    print(time.time()-t0,215)
     
     im = Image.open(image_path)
-    print(time.time()-t0)
+    print(time.time()-t0,218)
     width_norm, height_norm = im.size
-    print(time.time()-t0)
+    print(time.time()-t0,220)
     
     return width_norm, height_norm, im, image_norm
     
@@ -307,19 +307,27 @@ def graph_scatter(first_midpoint, rots, y_coord):
 #This function moves the motors and returned the file name
 def move_motor(angle,time_needed):
     global cam_name, file_type, camera_type, pname
-    
+    t0 = time.time()
     mtr_samOme.move(angle, wait = True)
+    print(time.time()-t0,312)
     ############# VERIFY!!!!
     PyEpics.caput(cam_name + ':' + camera_type + ':ImageMode', 'Single', wait=True)
+    print(time.time()-t0,315)
     PyEpics.caput(cam_name + ':' + camera_type + ':AcquireTime', time_needed, wait=True)
+    print(time.time()-t0,317)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
+    print(time.time()-t0,319)
     time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + camera_type + ':Acquire', 1, wait=True)
+    print(time.time()-t0,322)
     time.sleep(0.05)
     PyEpics.caput(cam_name + ':' + file_type + ':AutoSave', 'No', wait=True)
+    print(time.time()-t0,325)
     time.sleep(0.05)
     fname=PyEpics.caget(cam_name + ':' + file_type + ':FileName_RBV', 'str') + "_%06d"%(PyEpics.caget(cam_name + ':' + file_type + ':FileNumber_RBV')-1) + '.tif'
+    print(time.time()-t0,328)
     pfname=os.path.join(pname, fname)
+    print(time.time()-t0,330)
     return pfname
 
 app.layout = dbc.Container([
@@ -669,7 +677,7 @@ def update_imgs(dt, time_input, angle_input, clicks, checklist, xe, ye, aeroxe, 
                 cam_name = camname
                 camera_type = cam_input
                 froot = 'pin_alignment'
-                #PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True)
+                # PyEpics.caput(cam_name + ':' + file_type + ':FilePath', pname, wait=True)
                 PyEpics.caput(cam_name + ':' + file_type + ':FileName', froot, wait=True)
                 mtr_samXE = PyEpics.Motor(xe)
                 mtr_samYE = PyEpics.Motor(ye)
