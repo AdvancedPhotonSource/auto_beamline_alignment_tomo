@@ -310,6 +310,7 @@ def move_motor(angle,time_needed):
     
     mtr_samOme.move(angle, wait = True)
     ############# VERIFY!!!!
+    PyEpics.caput(cam_name + ':' + camera_type + ':ImageMode', 'Single', wait=True)
     PyEpics.caput(cam_name + ':' + camera_type + ':AcquireTime', time_needed, wait=True)
     PyEpics.caput(cam_name + ':' + file_type +':AutoSave', 'Yes', wait=True)
     time.sleep(0.05)
