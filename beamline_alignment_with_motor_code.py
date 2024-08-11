@@ -401,7 +401,7 @@ app.layout = dbc.Container([
                 html.Div(['samZE (optional): '], style=style)
             ]),
             dbc.Row([
-                dcc.Input(id='samYE-input', value = '1ide1:m35',type='text', style={'width': '200px'})
+                dcc.Input(id='samYE-input', value = '1ide1:m36',type='text', style={'width': '200px'})
             ])
         ]),
         dbc.Col([
