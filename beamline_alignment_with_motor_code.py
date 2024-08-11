@@ -275,7 +275,6 @@ def graph_scatter(first_midpoint, rots, y_coord):
     bounds = ([-3000, 0, -180], [3000, 2000, 180])
     p0 = [off, rad, 0]
     params, params_cov = curve_fit(func_fitting, theta, coords, p0=p0, bounds=bounds)
-    params[2] *= -1
     df_fit = pd.DataFrame(
         {'x': theta, 'y': [math.ceil(value) for value in func_fitting(theta, params[0], params[1], params[2])]})
 
