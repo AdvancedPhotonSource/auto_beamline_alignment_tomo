@@ -275,6 +275,7 @@ def graph_scatter(first_midpoint, rots, y_coord):
     bounds = ([-3000, 0, -180], [3000, 2000, 180])
     p0 = [off, rad, 0]
     params, params_cov = curve_fit(func_fitting, theta, coords, p0=p0, bounds=bounds)
+    params[2] *= -1
     df_fit = pd.DataFrame(
         {'x': theta, 'y': [math.ceil(value) for value in func_fitting(theta, params[0], params[1], params[2])]})
 
@@ -707,8 +708,8 @@ def new_image(clicks_restart):
             restart_clicks_tracker = clicks_restart
             beam_center = edges[1] - edges[0]
             move_aero_x = ((off_set - (beam_center/2)) * pixel_size)/1000
-            move_sam_x = (rad_ius * (np.sin(start_theta))*pixel_size)/1000
-            move_sam_y = (-rad_ius * (np.cos(start_theta))*pixel_size)/1000
+            move_sam_x = (rad_ius * (np.sin(start_theta*np.pi/180))*pixel_size)/1000
+            move_sam_y = (-rad_ius * (np.cos(start_theta*np.pi/180))*pixel_size)/1000
             print(move_aero_x,move_sam_x,move_sam_y)
             
             mtr_samXE.move(move_sam_x,relative=True, wait=True)
